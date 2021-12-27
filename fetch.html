@@ -25,6 +25,10 @@
     ********************************************************/
 
     //建立FETCH請求及實質內容
+    fetch('https://kktix.com/events.json',{method})
+    .then(function(res){
+        return res.json()
+    })
 
 
     //建立回呼函式(call back function)來處理回應時的各項行為

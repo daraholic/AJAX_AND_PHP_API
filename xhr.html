@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,31 @@
     <title>XMLHttpRequest</title>
     <link rel="shortcut icon" href="#" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <style>
+        .title {
+            border: 1px solid black;
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+        }
+        #list{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #list li{
+            margin: 5px 10px;
+            padding: 5px;
+            border: 1px solid gray;
+        } 
+        #list li:hover{
+            background-color: honeydew;
+            border: 1px solid beige;
+        }
+    </style>
 </head>
+
 <body>
     <h1 class="header">XMLHttpRequest</h1>
     <div class="title"></div>
@@ -15,6 +40,7 @@
     <ul></ul>
 
 </body>
+
 </html>
 <script>
     /********************************************************
@@ -26,14 +52,30 @@
     ********************************************************/
 
     //宣告一個XMLHttpRequest物件
-
+    let xhr = new XMLHttpRequest; //xhr自訂變數
 
     //建立請求的各項設定及實質內容
-
+    xhr.open('GET', 'https://kktix.com/events.json', true);
 
     //建立得到回應時的各項設定及行為
-
+    xhr.onload = () => { //()=> function() 匿名函式
+        let type = xhr.getResponseHeader('Content-Type');
+        let status = xhr.status
+        let res = JSON.parse(xhr.responseText);//字串轉物件parse()
+        $(".title").html(res.title)
+        res.entry.forEach(function(e,i){
+            console.log(e.title);
+            list=list+`<li>
+                <div>${e.title}</div>
+                </li>`;
+            
+        });
+        cnosole.log(list)
+        $("#list").html(list)
+        console.log(type,status,res);
+    
+    }
 
     //送出請求
-
-    </script>
+    xhr.send();
+</script>
